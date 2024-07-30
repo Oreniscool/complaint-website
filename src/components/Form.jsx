@@ -17,10 +17,7 @@ function Form({ changeVisibility, changeText }) {
         const formJson = Object.fromEntries(formData.entries());
         console.log(formJson);
         axios
-          .post(
-            'https://sheet.best/api/sheets/bbe5c55f-0ae1-4d20-a9be-86d8647a3fd2',
-            formJson
-          )
+          .post(import.meta.env.VITE_SHEET_LINK, formJson)
           .then((response) => {
             if (response.status == 200) {
               changeVisibility(
@@ -107,7 +104,7 @@ function Form({ changeVisibility, changeText }) {
     </form>
   );
 }
-Form.PropTypes = {
+Form.propTypes = {
   changeVisibility: PropTypes.func,
   changeText: PropTypes.func,
 };
