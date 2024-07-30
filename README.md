@@ -20,14 +20,10 @@ Installation:
 
 `npm install`
 
-To Run Test Suite:
-
-`npm test`
-
 To Start Server:
 
-`npm start`
+`npm run dev`
 
 To Visit App:
 
-`localhost:3000/ideas`
+`localhost:5173`
