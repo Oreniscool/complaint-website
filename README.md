@@ -1,14 +1,12 @@
 ## CiviLink
 
-CiviLink
-
 A website to post about stuff thats bugging you
 
 ## Project Status
 
-complete
+Complete for now
 
-## Project Screen Shot(s)
+## Civilink homepage
 
 ![A screenshot of the homepage](./public/civilink-ss.png?raw=true 'Optional Title')
 
