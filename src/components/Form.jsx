@@ -4,11 +4,18 @@ import Stack from '@mui/joy/Stack';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Textarea from '@mui/joy/Textarea';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import departmentsData from '../../public/departments.json';
+import Dropdown from './Dropdown';
 function Form({ changeVisibility, changeText }) {
   const [controlCss, setControlCss] = useState('w-full');
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    setDepartments(departmentsData);
+  }, []);
   return (
     <form
       onSubmit={(event) => {
@@ -19,46 +26,49 @@ function Form({ changeVisibility, changeText }) {
         axios
           .post(import.meta.env.VITE_SHEET_LINK, formJson)
           .then((response) => {
-            if (response.status == 200) {
-              changeVisibility(
-                'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center'
-              );
-              changeText('Complaint submitted!');
-            } else {
-              changeVisibility(
-                'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center'
-              );
-              changeText('An error occurred, please try again.');
-            }
+            changeVisibility(
+              'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center'
+            );
+            changeText('Complaint submitted!');
+            console.log(response);
+          })
+          .catch((e) => {
+            changeVisibility(
+              'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center'
+            );
+            changeText('An error occurred, please try again.');
+            console.error(e);
           });
       }}
     >
       <Stack spacing={3} alignItems="center">
-        <FormControl className={controlCss}>
-          <FormLabel>Name</FormLabel>
-          <Input
-            placeholder="Enter your name"
-            required
-            disabled={false}
-            size="lg"
-            variant="outlined"
-            color="success"
-            name="name"
-          />
-        </FormControl>
-        <FormControl className={controlCss}>
-          <FormLabel>Email</FormLabel>
-          <Input
-            placeholder="Enter an email so we can notify you of any updates"
-            type="email"
-            required
-            disabled={false}
-            size="lg"
-            variant="outlined"
-            color="success"
-            name="email"
-          />
-        </FormControl>
+        <Stack direction="row" spacing={3} className="w-full">
+          <FormControl className={controlCss}>
+            <FormLabel>Name</FormLabel>
+            <Input
+              placeholder="Enter your name"
+              required
+              disabled={false}
+              size="lg"
+              variant="outlined"
+              color="success"
+              name="name"
+            />
+          </FormControl>
+          <FormControl className={controlCss}>
+            <FormLabel>Email</FormLabel>
+            <Input
+              placeholder="Enter an email so we can notify you of any updates"
+              type="email"
+              required
+              disabled={false}
+              size="lg"
+              variant="outlined"
+              color="success"
+              name="email"
+            />
+          </FormControl>
+        </Stack>
         <FormControl className={controlCss}>
           <FormLabel size="lg">Address</FormLabel>
           <Input
@@ -70,6 +80,14 @@ function Form({ changeVisibility, changeText }) {
             color="success"
             name="address"
           />
+        </FormControl>
+        <FormControl className={controlCss}>
+          <FormLabel>Department</FormLabel>
+          <Dropdown
+            jsonData={departmentsData}
+            placeholder="Department to send complaint"
+            name="department"
+          ></Dropdown>
         </FormControl>
         <FormControl className={controlCss}>
           <FormLabel>Description</FormLabel>

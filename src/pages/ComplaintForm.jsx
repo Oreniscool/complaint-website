@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Form from '../components/Form';
 import { Button } from '@mui/base/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function ComplaintForm() {
   const [modalVisibility, setModalVisibility] = useState(
     'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center hidden'
   );
   const [modalText, setModalText] = useState('placeholder');
-  useEffect(() => {
-    console.log(modalText, modalVisibility);
-  }, [modalText, modalVisibility]);
+  // useEffect(() => {
+  //   console.log(modalText, modalVisibility);
+  // }, [modalText, modalVisibility]);
   const handleClick = () => {
     setModalVisibility(
       'h-screen w-screen bg-[#0000004D] absolute flex justify-center items-center hidden'
@@ -17,6 +20,12 @@ function ComplaintForm() {
   };
   return (
     <>
+      <Link to="/">
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className="absolute top-10 left-10 text-4xl transition-all hover:-translate-x-2"
+        />
+      </Link>
       <div className="flex flex-col justify-evenly h-screen w-3/5">
         <h1 className="text-3xl text-text-100 font-bold">
           Submit your complaint
